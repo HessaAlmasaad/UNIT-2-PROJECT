@@ -3,8 +3,8 @@
 {% block title %} Contact Form {% endblock %}
 {% block content %}
 <section id="contact" class="section contact">
-    <h2>Contact Me</h2>
-    <form method="post" action="{% url 'contact' %}">
+    <h1>Contact Us</h1>
+    <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Send Message</button>

@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from admin_custom.models import Project  
+from django.shortcuts import render,redirect
+from admin_custom.models import Project 
+from .models import Contact 
 from .forms import ContactForm  
 
 def home(request):
@@ -13,9 +14,13 @@ def projects(request):
     return render(request, 'main/projects.html',{'projects': projects})
 
 def contact(request):
-    form = ContactForm()
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            form.save()
-    return render(request, 'main/contact.html', {'form': form})
+            form.save()  # Saves the data to the database
+            return redirect('main:thank_you.html')  # Redirect after successful submission
+    else:
+        form = ContactForm()
+
+    return render(request, 'main/contact_form.html', {'form': form})
+

@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from .models import Project
 #from .forms import ProjectForm  # Assuming you have created a ProjectForm
 from .models import Contact
-#from .forms import ContactMessageForm  # Assuming you have created a ContactMessageForm
+#from .forms import ContactForm  # Assuming you have created a ContactMessageForm
 
 def is_superuser(user):
     return user.is_superuser  
@@ -58,34 +58,7 @@ def contact_messages(request):
 #         return redirect('project_list')
 #     return render(request, 'admin_custom/project_confirm_delete.html', {'project': project})
 
-
-
-# Create a new contact message
-# def create_contact_message(request):
-#     if request.method == 'POST':
-#         form = ContactMessageForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('contact_message_list')  # Redirect to the contact message list
-#     else:
-#         form = ContactMessageForm()
-#     return render(request, 'admin_custom/contact_form.html', {'form': form})
-
-# Read (view) all contact messages
-# def contact_message_list(request):
-#     messages = Contact.objects.all()
-#     return render(request, 'admin_custom/contact_message_list.html', {'messages': messages})
-
-# Read (view) a single contact message
-# def contact_message_detail(request, pk):
-#     message = get_object_or_404(Contact, pk=pk)
-#     return render(request, 'admin_custom/contact_message_detail.html', {'message': message})
-
-# Delete a contact message
-# def delete_contact_message(request, pk):
-#     message = get_object_or_404(Contact, pk=pk)
-#     if request.method == 'POST':
-#         message.delete()
-#         return redirect('contact_message_list')
-#     return render(request, 'admin_custom/contact_message_confirm_delete.html', {'message': message})
-
+# @user_passes_test(lambda u: u.is_staff)  
+# def contact_messages_view(request):
+#     contacts = Contact.objects.all().order_by('-date_sent')  # Sort by most recent
+#     return render(request, 'admin_custom/contact_messages.html', {'contacts': contacts})

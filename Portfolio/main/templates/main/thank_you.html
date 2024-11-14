@@ -1,0 +1,10 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} Thank You for Your Message {% endblock %}
+{% block content %}
+<div class="thank-you-container">
+    <h1>Thank You!</h1>
+    <p>We appreciate you reaching out. Your message has been successfully sent, and we will respond as soon as possible.</p>
+    <a href="{% url 'main:contact' %}" class="button">Back to Contact Page</a> 
+</div>
+{% endblock %}

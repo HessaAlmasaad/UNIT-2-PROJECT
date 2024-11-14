@@ -2,5 +2,34 @@
 {% load static %}
 {% block title %} Contact Messages {% endblock %}
 {% block content %}
-<h1>Contact Messages Page!</h1>
+<h2>Contact Messages</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Status</th>
+            <th>Date Sent</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contact in contacts %}
+        <tr>
+            <td>{{ contact.sender_name }}</td>
+            <td>{{ contact.sender_email }}</td>
+            <td>{{ contact.message_content }}</td>
+            <td>{{ contact.get_status_display }}</td>
+            <td>{{ contact.date_sent }}</td>
+            <td>
+                <!-- Example actions (if needed) -->
+                <a href="{% url 'mark_as_read' contact.id %}">Mark as Read</a>
+                <a href="{% url 'archive_message' contact.id %}">Archive</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 {% endblock %}
