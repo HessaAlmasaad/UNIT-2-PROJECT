@@ -2,5 +2,12 @@
 {% load static %}
 {% block title %} Contact Form {% endblock %}
 {% block content %}
-<h1>Contact Page!</h1>
+<section id="contact" class="section contact">
+    <h2>Contact Me</h2>
+    <form method="post" action="{% url 'contact' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Send Message</button>
+    </form>
+</section>
 {% endblock %}

@@ -7,15 +7,14 @@ class Project(models.Model):
     category = models.CharField(
     max_length=100,
     choices=[
-        ('Game Development', 'Game Development'),
-        ('Web Development', 'Web Development'),
-        ('Full Stack Development', 'Full Stack Development'),
-        ('Software Development', 'Software Development'),
-        ('Educational Platforms', 'Educational Platforms'),
-        ('Hackathon Projects', 'Hackathon Projects'),
-        ('Agile and Project Management', 'Agile and Project Management'),
+        ('All', 'All'),
+        ('Web Development', 'Web'), 
+        ('Full Stack Development', 'Full Stack'),
+        ('Game Development', 'Game'), 
+        ('Agile and Project Management', 'Project Management'), 
+        ('Hackathon Projects', 'Hackathon'),  
     ],
-    default='Web Development'
+    default='All'
 )
     date_created = models.DateTimeField(auto_now_add=True)
     github_url = models.URLField(blank=True, null=True)
@@ -23,7 +22,6 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
-
 
 class Contact(models.Model):
     sender_name = models.CharField(max_length=100)

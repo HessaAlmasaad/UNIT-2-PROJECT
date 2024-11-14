@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect
-from django.http import HttpRequest,HttpResponse
+from django.shortcuts import render
+from admin_custom.models import Project  
+from .forms import ContactForm  
 
-
-# Create your views here
 def home(request):
     return render(request, 'main/home.html')
 
@@ -10,9 +9,13 @@ def about(request):
     return render(request, 'main/about.html')
 
 def projects(request):
-    return render(request, 'main/projects.html')
+    projects = Project.objects.all()
+    return render(request, 'main/projects.html',{'projects': projects})
 
 def contact(request):
-    return render(request, 'main/contact.html')
-
-
+    form = ContactForm()
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+    return render(request, 'main/contact.html', {'form': form})
