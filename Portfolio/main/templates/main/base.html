@@ -18,6 +18,10 @@
             <li><a href="{% url 'main:about' %}">About</a></li>
             <li><a href="{% url 'main:projects' %}">Projects</a></li>
             <li><a href="{% url 'main:contact' %}">Contact</a></li>
+            <li>{% if request.user.is_superuser %}
+                <a href="{% url 'admin_custom:dashboard' %}">Dashboard</a>
+                {% endif %}
+            </li>
         </ul>
     </nav>
     <!-- Content Block -->

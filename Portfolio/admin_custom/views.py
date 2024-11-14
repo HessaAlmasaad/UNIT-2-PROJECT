@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render,redirect
 from .models import Project
 #from .forms import ProjectForm  # Assuming you have created a ProjectForm
@@ -8,6 +8,11 @@ from .models import Contact
 def is_superuser(user):
     return user.is_superuser  
 
+@login_required
+@user_passes_test(is_superuser)
+def dashboard(request):
+    return render(request, 'admin_custom/admin_dashboard.html')
+
 @user_passes_test(is_superuser)
 def project_details(request):
     return render(request, 'admin_custom/project_details.html')
@@ -15,7 +20,6 @@ def project_details(request):
 @user_passes_test(is_superuser)
 def contact_messages(request):
     return render(request, 'admin_custom/contact_messages.html')
-
 
 #Create a new project
 # def create_project(request):
