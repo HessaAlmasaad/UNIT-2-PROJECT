@@ -43,18 +43,7 @@
                         <td>{{ message.status }}</td>
                         <td>{{ message.date_sent }}</td>
                         <td>
-                            <form action="{% url 'admin_custom:mark_message_as_read' message.id %}" method="post" class="d-inline">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-sm btn-warning">Mark as Read</button>
-                            </form>
-                            <form action="{% url 'admin_custom:archive_message' message.id %}" method="post" class="d-inline">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-sm btn-secondary">Archive</button>
-                            </form>
-                            <form action="{% url 'admin_custom:delete_message' message.id %}" method="post" class="d-inline">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                            </form>
+                            <a href="{% url 'admin_custom:contact_detail' message.id %}" class="btn btn-sm btn-info">View Details</a>
                         </td>
                     </tr>
                     {% endfor %}

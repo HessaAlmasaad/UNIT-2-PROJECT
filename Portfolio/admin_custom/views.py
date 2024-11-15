@@ -168,6 +168,22 @@ def contact_list(request):
         'status_filter': status_filter,
         'statuses': Contact._meta.get_field('status').choices  
     })
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def contact_detail(request, pk):
+    contact = get_object_or_404(Contact, pk=pk)
+
+    if request.method == "POST":
+        action = request.POST.get("action")
+        if action == "mark_as_read" and contact.status != 'read':
+            contact.mark_as_read()
+        elif action == "archive_message" and contact.status != 'archived':
+            contact.archive_message()
+        elif action == "delete_message":
+            contact.delete_message()
+            return redirect('admin_custom:contact_list')
+    
+    return render(request, 'admin_custom/contact_detail.html', {'contact': contact})
 
 def contact_form_view(request):
     if request.method == "POST":

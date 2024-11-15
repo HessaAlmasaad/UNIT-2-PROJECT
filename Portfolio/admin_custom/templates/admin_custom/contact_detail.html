@@ -1,0 +1,28 @@
+{% extends 'admin_custom/base.html' %}
+
+{% block title %}Contact Details{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4>Contact Message Details</h4>
+        </div>
+        <div class="card-body">
+            <h5><strong>Sender Name:</strong> {{ contact.sender_name }}</h5>
+            <h5><strong>Sender Email:</strong> {{ contact.sender_email }}</h5>
+            <h5><strong>Date Sent:</strong> {{ contact.date_sent }}</h5>
+            <h5><strong>Status:</strong> {{ contact.get_status_display }}</h5>
+            <p><strong>Message:</strong> {{ contact.message_content }}</p>
+
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" name="action" value="mark_as_read" class="btn btn-success" {% if contact.status == 'read' %}disabled{% endif %}>Mark as Read</button>
+                <button type="submit" name="action" value="archive_message" class="btn btn-secondary" {% if contact.status == 'archived' %}disabled{% endif %}>Archive Message</button>
+                <button type="submit" name="action" value="delete_message" class="btn btn-danger mt-2">Delete Message</button>
+            </form>
+            <a href="{% url 'admin_custom:contact_list' %}" class="btn btn-secondary mt-3">Back to Messages</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

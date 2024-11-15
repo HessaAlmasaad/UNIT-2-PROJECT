@@ -22,9 +22,10 @@ urlpatterns = [
 
     # CRUD for Contacts
     path('contact-messages/', views.contact_list, name='contact_list'),
-    path('contact-messages/mark-read/<int:pk>/', views.mark_message_as_read, name='mark_message_as_read'),
-    path('contact-messages/archive/<int:pk>/', views.archive_message, name='archive_message'),
-    path('contact-messages/delete/<int:pk>/', views.delete_message, name='delete_message'),
+    path('contact-messages/<int:pk>/', views.contact_detail, name='contact_detail'),
+    path('contact-messages/<int:pk>/mark-as-read/', views.mark_message_as_read, name='mark_message_as_read'),
+    path('contact-messages/<int:pk>/archive/', views.archive_message, name='archive_message'),
+    path('contact-messages/<int:pk>/delete/', views.delete_message, name='delete_message'),
     
     # Logout
     path('logout/', views.logout_view, name='logout_view'),
