@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from admin_custom.models import Project 
-from .models import Contact 
+from admin_custom.models import Contact 
 from .forms import ContactForm  
 
 def home(request):

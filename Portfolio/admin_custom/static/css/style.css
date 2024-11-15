@@ -1,0 +1,16 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+/* Custom styles for the logout button */
+.logout-button {
+    transition: color 0.3s, background-color 0.3s;
+}
+.logout-button:hover {
+    color: white;
+    background-color: red;
+}
+.footer {
+    width: 100%;
+    text-align: center;
+}

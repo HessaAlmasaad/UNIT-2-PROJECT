@@ -5,23 +5,33 @@ class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     category = models.CharField(
-    max_length=100,
-    choices=[
-        ('All', 'All'),
-        ('Web Development', 'Web'), 
-        ('Full Stack Development', 'Full Stack'),
-        ('Game Development', 'Game'), 
-        ('Agile and Project Management', 'Project Management'), 
-        ('Hackathon Projects', 'Hackathon'),  
-    ],
-    default='All'
-)
-    date_created = models.DateTimeField(auto_now_add=True)
-    github_url = models.URLField(blank=True, null=True)
+        max_length=100,
+        choices=[
+            ('All', 'All'),
+            ('Web Development', 'Web'),
+            ('Full Stack Development', 'Full Stack'),
+            ('Game Development', 'Game'), 
+            ('Agile and Project Management', 'Project Management'), 
+            ('Hackathon Projects', 'Hackathon'),
+        ],
+        default='All'
+    )
     technologies_used = models.TextField()
+    role_details = models.TextField()
+    github_url = models.URLField(blank=True, null=True)
+    project_image = models.ImageField(upload_to="images/", blank=True, null=True)
+    project_date = models.DateField(null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+
+class ProjectImage(models.Model):
+    project = models.ForeignKey(Project, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='images/')
+
+    def __str__(self):
+        return f"Image for {self.project.title}"
 
 class Contact(models.Model):
     sender_name = models.CharField(max_length=100)
