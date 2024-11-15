@@ -1,65 +1,75 @@
 {% extends 'admin_custom/base.html' %}
-
-{% block title %}Contacts Management{% endblock %}
-
+{% block title %}Contact Messages{% endblock %}
 {% block content %}
 <div class="container mt-4">
-    <h1>Contacts</h1>
-    <form method="get" action="">
-        <div class="input-group mb-3">
-            <input type="text" name="search" class="form-control" placeholder="Search Contacts" value="{{ search_query }}">
-            <select name="ordering" class="form-select">
-                <option value="sender_name" {% if ordering == 'sender_name' %}selected{% endif %}>Order by Name</option>
-                <option value="date_sent" {% if ordering == 'date_sent' %}selected{% endif %}>Order by Date</option>
-            </select>
-            <select name="status" class="form-select ms-2">
-                <option value="">All Statuses</option>
-                {% for key, name in statuses %}
-                    <option value="{{ key }}" {% if status_filter == key %}selected{% endif %}>{{ name }}</option>
-                {% endfor %}
-            </select>
-            <button class="btn btn-primary" type="submit">Search</button>
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4>Contact Messages</h4>
         </div>
-    </form>
-    <a href="{% url 'admin_custom:contact_create' %}" class="btn btn-success mb-2">Add New Contact</a>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Sender Name</th>
-                <th>Email</th>
-                <th>Date Sent</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for contact in contacts %}
-            <tr>
-                <td>{{ contact.sender_name }}</td>
-                <td>{{ contact.sender_email }}</td>
-                <td>{{ contact.date_sent }}</td>
-                <td>{{ contact.status }}</td>
-                <td>
-                    <a href="{% url 'admin_custom:contact_detail' contact.id %}" class="btn btn-sm btn-primary">View</a>
-                    <a href="{% url 'admin_custom:contact_update' contact.id %}" class="btn btn-sm btn-warning">Edit</a>
-                    <a href="{% url 'admin_custom:contact_delete' contact.id %}" class="btn btn-sm btn-danger">Delete</a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="5">No contacts found.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <div class="pagination">
-        {% for page_num in contacts.paginator.page_range %}
-            {% if contacts.number == page_num %}
-                <span>{{ page_num }}</span>
-            {% else %}
-                <a href="?page={{ page_num }}&search={{ search_query }}&ordering={{ ordering }}&status={{ status_filter }}">{{ page_num }}</a>
-            {% endif %}
-        {% endfor %}
+        <div class="card-body">
+            <form method="get" action="">
+                <div class="input-group mb-3">
+                    <input type="text" name="search" class="form-control" placeholder="Search Contacts" value="{{ search_query }}">
+                    <select name="ordering" class="form-select">
+                        <option value="sender_name" {% if ordering == 'sender_name' %}selected{% endif %}>Order by Name</option>
+                        <option value="date_sent" {% if ordering == 'date_sent' %}selected{% endif %}>Order by Date</option>
+                    </select>
+                    <select name="status" class="form-select ms-2">
+                        <option value="">All Statuses</option>
+                        {% for key, name in statuses %}
+                            <option value="{{ key }}" {% if status_filter == key %}selected{% endif %}>{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </form>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Sender Name</th>
+                        <th>Sender Email</th>
+                        <th>Message Content</th>
+                        <th>Status</th>
+                        <th>Date Sent</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for message in contacts %}
+                    <tr>
+                        <td>{{ message.sender_name }}</td>
+                        <td>{{ message.sender_email }}</td>
+                        <td>{{ message.message_content }}</td>
+                        <td>{{ message.status }}</td>
+                        <td>{{ message.date_sent }}</td>
+                        <td>
+                            <form action="{% url 'admin_custom:mark_message_as_read' message.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-warning">Mark as Read</button>
+                            </form>
+                            <form action="{% url 'admin_custom:archive_message' message.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-secondary">Archive</button>
+                            </form>
+                            <form action="{% url 'admin_custom:delete_message' message.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="pagination">
+                {% for page_num in contacts.paginator.page_range %}
+                    {% if contacts.number == page_num %}
+                        <span>{{ page_num }}</span>
+                    {% else %}
+                        <a href="?page={{ page_num }}&search={{ search_query }}&ordering={{ ordering }}&status={{ status_filter }}">{{ page_num }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

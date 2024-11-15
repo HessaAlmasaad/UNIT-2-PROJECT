@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from . import views 
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
@@ -21,11 +21,10 @@ urlpatterns = [
     path('projects/<int:pk>/delete/', views.project_delete, name='project_delete'),
 
     # CRUD for Contacts
-    path('contacts/', views.contact_list, name='contact_list'),
-    path('contacts/create/', views.contact_create, name='contact_create'),
-    path('contacts/<int:pk>/', views.contact_detail, name='contact_detail'),
-    path('contacts/<int:pk>/edit/', views.contact_update, name='contact_update'),
-    path('contacts/<int:pk>/delete/', views.contact_delete, name='contact_delete'),
+    path('contact-messages/', views.contact_list, name='contact_list'),
+    path('contact-messages/mark-read/<int:pk>/', views.mark_message_as_read, name='mark_message_as_read'),
+    path('contact-messages/archive/<int:pk>/', views.archive_message, name='archive_message'),
+    path('contact-messages/delete/<int:pk>/', views.delete_message, name='delete_message'),
     
     # Logout
     path('logout/', views.logout_view, name='logout_view'),

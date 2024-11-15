@@ -18,9 +18,12 @@ def contact(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()  # Saves the data to the database
-            return redirect('main:thank_you.html')  # Redirect after successful submission
+            return redirect('main:thank_you')  # Redirect after successful submission
     else:
         form = ContactForm()
 
     return render(request, 'main/contact_form.html', {'form': form})
+
+def thank_you_view(request):
+    return render(request, 'main/thank_you.html')
 

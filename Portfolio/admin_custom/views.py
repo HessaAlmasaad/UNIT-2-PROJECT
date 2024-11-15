@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth import logout
 from django.forms import modelformset_factory
-
+from django.views.decorators.http import require_POST
 # Dashboard Home View
 @login_required
 @user_passes_test(lambda u: u.is_superuser)  # Restrict access to superusers only
@@ -166,49 +166,42 @@ def contact_list(request):
         'search_query': search_query,
         'ordering': ordering,
         'status_filter': status_filter,
-        'statuses': Contact._meta.get_field('status').choices  # Pass status choices to the template
+        'statuses': Contact._meta.get_field('status').choices  
     })
 
-
-@login_required
-@user_passes_test(lambda u: u.is_superuser)
-def contact_create(request):
-    if request.method == 'POST':
+def contact_form_view(request):
+    if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('admin_custom:contact_list')
+            return redirect('main:thank_you')
     else:
         form = ContactForm()
-    return render(request, 'admin_custom/contact_form.html', {'form': form})
+    return render(request, 'main/contact_form.html', {'form': form})
 
+@require_POST
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
-def contact_detail(request, pk):
-    contact = get_object_or_404(Contact, pk=pk)
-    return render(request, 'admin_custom/contact_detail.html', {'contact': contact})
+def mark_message_as_read(request, pk):
+    message = get_object_or_404(Contact, pk=pk)
+    message.mark_as_read()
+    return redirect('admin_custom:contact_list')
 
+@require_POST
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
-def contact_update(request, pk):
-    contact = get_object_or_404(Contact, pk=pk)
-    if request.method == 'POST':
-        form = ContactForm(request.POST, instance=contact)
-        if form.is_valid():
-            form.save()
-            return redirect('admin_custom:contact_list')
-    else:
-        form = ContactForm(instance=contact)
-    return render(request, 'admin_custom/contact_form.html', {'form': form})
+def archive_message(request, pk):
+    message = get_object_or_404(Contact, pk=pk)
+    message.archive_message()
+    return redirect('admin_custom:contact_list')
 
+@require_POST
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
-def contact_delete(request, pk):
-    contact = get_object_or_404(Contact, pk=pk)
-    if request.method == 'POST':
-        contact.delete()
-        return redirect('admin_custom:contact_list')
-    return render(request, 'admin_custom/contact_confirm_delete.html', {'contact': contact})
+def delete_message(request, pk):
+    message = get_object_or_404(Contact, pk=pk)
+    message.delete_message()
+    return redirect('admin_custom:contact_list')
 
 # Logout
 def logout_view(request):
