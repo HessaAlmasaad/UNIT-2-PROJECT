@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, get_object_or_404, redirect 
 from .models import Project, Contact  , ProjectImage
-from .forms import ProjectForm, ContactForm , ProjectImageFormSet
+from .forms import ProjectForm, ContactForm , ProjectImageForm
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth import logout
@@ -74,11 +74,6 @@ def project_list(request):
         'categories': Project._meta.get_field('category').choices
     })
 
-# views.py
-from django.shortcuts import render, redirect
-from .forms import ProjectForm, ProjectImageFormSet
-from .models import Project
-
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def project_create(request):
@@ -108,18 +103,35 @@ def project_detail(request, pk):
     project = get_object_or_404(Project, pk=pk)
     return render(request, 'admin_custom/project_detail.html', {'project': project})
 
-@login_required
+@login_required 
 @user_passes_test(lambda u: u.is_superuser)
 def project_update(request, pk):
     project = get_object_or_404(Project, pk=pk)
+    ProjectImageFormSet = modelformset_factory(ProjectImage, form=ProjectImageForm, extra=0)  # Set extra to 0 to avoid redundancy
+
     if request.method == "POST":
-        form = ProjectForm(request.POST, instance=project)
-        if form.is_valid():
-            form.save()
+        form = ProjectForm(request.POST, request.FILES, instance=project)
+        formset = ProjectImageFormSet(request.POST, request.FILES, queryset=ProjectImage.objects.filter(project=project), prefix='images')
+        
+        if form.is_valid() and formset.is_valid():
+            project_instance = form.save()
+            images = formset.save(commit=False)
+            
+            # Save images and associate them with the project
+            for image in images:
+                image.project = project_instance
+                image.save()
+            
+            # Handle deletion of removed images
+            for obj in formset.deleted_objects:
+                obj.delete()
+            
             return redirect('admin_custom:project_list')
     else:
         form = ProjectForm(instance=project)
-    return render(request, 'admin_custom/project_form.html', {'form': form})
+        formset = ProjectImageFormSet(queryset=ProjectImage.objects.filter(project=project), prefix='images')
+
+    return render(request, 'admin_custom/project_form.html', {'form': form, 'formset': formset})
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)

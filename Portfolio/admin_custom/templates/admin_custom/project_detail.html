@@ -1,0 +1,32 @@
+{% extends 'admin_custom/base.html' %}
+{% block title %}Project Details{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4>{{ project.title }}</h4>
+        </div>
+        <div class="card-body">
+            <h5>Project Details</h5>
+            <p><strong>Role details:</strong> {{ project.role_details }}</p>
+            <p><strong>Description:</strong> {{ project.description }}</p>
+            <p><strong>Category:</strong> {{ project.category }}</p>
+            <p><strong>Github URL:</strong> <a href="{{ project.github_url }}" target="_blank">{{ project.github_url }}</a></p>
+            <p><strong>Project Date:</strong> {{ project.project_date }}</p>
+            
+            <h5>Images</h5>
+            <div class="row">
+                {% for image in project.projectimage_set.all %}
+                <div class="col-md-4 mb-3">
+                    <img src="{{ image.image.url }}" class="img-fluid img-thumbnail" alt="Project Image">
+                </div>
+                {% endfor %}
+            </div>
+            
+            <a href="{% url 'admin_custom:project_list' %}" class="btn btn-secondary">Back to Projects</a>
+            <a href="{% url 'admin_custom:project_update' project.pk %}" class="btn btn-warning">Edit Project</a>
+            <a href="{% url 'admin_custom:project_delete' project.pk %}" class="btn btn-danger">Delete Project</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
