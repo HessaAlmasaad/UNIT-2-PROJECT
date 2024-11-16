@@ -10,9 +10,16 @@ def about(request):
     return render(request, 'main/about.html')
 
 def projects(request):
-    projects = Project.objects.all()
-    return render(request, 'main/projects.html',{'projects': projects})
+    category = request.GET.get('category', 'all')
+    if category == 'all':
+        projects = Project.objects.all()
+    else:
+        projects = Project.objects.filter(category__iexact=category)  # Case-insensitive match
+    return render(request, 'main/projects.html', {'projects': projects})
 
+
+def project_view(request):
+    return render(request, 'main/project_view.html')
 def contact(request):
     if request.method == "POST":
         form = ContactForm(request.POST)

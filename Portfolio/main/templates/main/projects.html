@@ -1,19 +1,52 @@
 {% extends 'main/base.html' %}
 {% load static %}
 {% block title %} Projects {% endblock %}
+{% block body_class %}projects-background{% endblock %}
 {% block content %}
-<section id="projects" class="section projects">
+
+<section id="projects" class="projects-section">
     <h2>My Projects</h2>
+    <div class="filter-buttons">
+        <button class="filter-button" data-filter="all">ALL Projects</button>
+    </div>
     <div class="project-container">
         {% for project in projects %}
-            <div class="project-card">
-                <h3>{{ project.title }}</h3>
-                <p>{{ project.description }}</p>
-                {% if project.github_url %}
-                    <a href="{{ project.github_url }}" target="_blank">View on GitHub</a>
-                {% endif %}
-            </div>
+        <div class="project-card" data-category="{{ project.category|slugify }}">
+            <h3>{{ project.title }} - Category: {{ project.category }}</h3>
+            <a href="{% url 'main:project_view' project.id %}" class="btn btn-primary">Project View</a>
+        </div>
+        
+        {% empty %}
+        <p>No projects found.</p>
         {% endfor %}
     </div>
 </section>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const filterButtons = document.querySelectorAll('.filter-button');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    console.log('Filter selected:', filter);
+                    console.log('Card category:', card.getAttribute('data-category'));
+
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = ''; // Reset to default display style (e.g., block, flex)
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Highlight the selected button (optional)
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
+    });
+</script>
+
 {% endblock %}

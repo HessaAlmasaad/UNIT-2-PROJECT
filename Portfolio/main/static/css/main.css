@@ -232,6 +232,101 @@ h2.text-center {
     color: #ffffff; /* White text for better contrast */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Subtle shadow */
 }
+
+/* Projects Page */
+body.projects-background {
+    background: url('/static/images/other_background.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.projects-section {
+    padding: 20px 0 60px; /* Padding for better spacing */
+    background-color: #f5f5f5; /* Light background for contrast */
+    min-height: 80vh; /* Increased height to ensure sufficient coverage */
+    margin-top: 60px; /* Optional: Adjust margin-top to clear space from fixed navbar */
+}
+
+
+.filter-buttons {
+    margin-bottom: 20px; /* Slightly increased spacing for better separation */
+    display: flex;
+    gap: 12px;
+    justify-content: center; /* Centers the buttons */
+}
+
+.filter-button {
+    padding: 12px 18px; /* Slightly larger padding for better clickability */
+    border: none;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.filter-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Slightly scales up on hover for better feedback */
+}
+
+.project-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Ensures projects are centered */
+}
+
+.project-card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px; /* Slightly increased padding for improved spacing */
+    width: 280px; /* Adjusted width for consistent card sizes */
+    text-align: center;
+    transition: transform 0.3s ease;
+    margin-bottom: 20px; /* Adds consistent spacing between rows */
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhances shadow on hover */
+}
+
+.project-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px; /* Adds separation between image and text */
+}
+
+.project-card h3 {
+    margin: 10px 0;
+    color: #333;
+    font-size: 1.2rem; /* Slightly larger font size for better readability */
+}
+
+.project-card p {
+    color: #666;
+    font-size: 0.95rem; /* Adjusts the text size for consistency */
+}
+
+.project-card a {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.project-card a:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px); /* Slight movement on hover for feedback */
+}
+
+
 /* Animations */
 @keyframes fadeIn {
     0% { opacity: 0; }
