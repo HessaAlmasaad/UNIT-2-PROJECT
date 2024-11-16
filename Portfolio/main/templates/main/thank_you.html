@@ -3,9 +3,47 @@
 {% block title %} Thank You! {% endblock %}
 {% block body_class %}projects-background{% endblock %}
 {% block content %}
-<div class="thank-you-container">
-    <h1>Thank You!</h1>
-    <p>We appreciate you reaching out. Your message has been successfully sent, and we will respond as soon as possible.</p>
-    <a href="{% url 'main:contact' %}" class="button">Back to Contact Page</a> 
+<div class="thank-you-container d-flex align-items-center justify-content-center vh-100">
+    <div class="card p-4 shadow-lg border-0" style="max-width: 500px; border-radius: 12px; background: rgba(255, 255, 255, 0.85);">
+        <h1 class="text-center mb-4" style="font-weight: bold; color: #1a73e8;">Thank You!</h1>
+        <p class="text-center mb-4" style="font-size: 1.1rem; color: #333;">
+            We appreciate you reaching out. Your message has been successfully sent, and we will respond as soon as possible.
+        </p>
+        <div class="text-center">
+            <a href="{% url 'main:contact' %}" class="btn btn-primary">Back to Contact Page</a>
+        </div>
+    </div>
 </div>
+<style>
+    .thank-you-container {
+        background: linear-gradient(135deg, #4a90e2, #89c2ff); /* Gradient similar to the uploaded image */
+        padding: 20px;
+    }
+    .card {
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #1a73e8;
+    }
+    p {
+        font-size: 1rem;
+        color: #555;
+    }
+    .btn-primary {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background-color: #1a73e8;
+        color: #fff;
+        text-decoration: none;
+        border: none;
+        border-radius: 25px;
+        transition: background 0.3s ease;
+    }
+    .btn-primary:hover {
+        background-color: #166bb3;
+    }
+</style>
 {% endblock %}
