@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect , get_object_or_404
 from admin_custom.models import Project 
 from admin_custom.models import Contact 
 from .forms import ContactForm  
@@ -18,8 +18,10 @@ def projects(request):
     return render(request, 'main/projects.html', {'projects': projects})
 
 
-def project_view(request):
-    return render(request, 'main/project_view.html')
+def project_view(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    return render(request, 'main/project_view.html', {'project': project})
+
 def contact(request):
     if request.method == "POST":
         form = ContactForm(request.POST)

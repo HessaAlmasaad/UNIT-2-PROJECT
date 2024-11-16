@@ -1,1 +1,67 @@
-<h1>hhh</h1>
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} Projects {% endblock %}
+{% block body_class %}projects-background{% endblock %}
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<div class="project-details-container">
+    <div class="card shadow-lg">
+        <div class="card-header text-center bg-primary text-white">
+            <h1 class="display-4">{{ project.title }}</h1>
+        </div>
+        <div class="card-body">
+            <p class="card-text"><strong>Date:</strong> {{ project.project_date }}</p>
+            <h5 class="card-subtitle mb-3 text-muted">Category: <span class="badge badge-info">{{ project.category }}</span></h5>
+            <p class="card-text"><strong>Description:</strong> {{ project.description }}</p>
+            <p class="card-text"><strong>Technology Used:</strong> {{ project.technologies_used }}</p>
+            <p class="card-text"><strong>My Role in Project:</strong> {{ project.role_details }}</p>
+        </div>
+        <div class="card-footer text-center">
+            <a href="{{ project.github_url }}" target="_blank" class="btn btn-outline-primary">
+                <i class="bi bi-box-arrow-up-right"></i> Project Link
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+.project-details-container {
+    margin-top: 120px; /* Adjust this value as needed */
+    margin-bottom: 50px;
+    padding: 20px;
+}
+
+.card {
+    max-width: 800px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.85); /* Semi-transparent white background */
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body p, .card-body h5, .card-body .card-text {
+    color: #333; /* Adjust for darker text for contrast */
+}
+
+.card-body h5 {
+    font-weight: bold;
+}
+
+.card-header h1 {
+    color: #7686fd; /* Darker blue */
+}
+
+.card a {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.card a:hover {
+    color: #7686fd;
+    text-decoration: underline;
+}
+
+</style>
+
+{% endblock %}
