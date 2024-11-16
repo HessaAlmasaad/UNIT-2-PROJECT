@@ -3,23 +3,33 @@
 {% block title %} About {% endblock %}
 {% block body_class %}about-background{% endblock %}
 {% block content %}
-<div class="glass-container">
-    <!-- About Section -->
-    <section id="about" class="section about-section">
-        <div class="container text-center">
-            <div class="row justify-content-center">
-                <!-- About Me Section -->
+<!-- About Section -->
+<section id="about" class="section about-section">
+    <div class="glass-container"> <!-- Added glass-container here -->
+        <div class="container">
+            <h2 class="section-title mb-4">About</h2>
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center">
+                    <img src="{% static 'images/logo.png' %}" alt="Your Profile Image" class="about-profile-image">
+                </div>
                 <div class="col-md-8">
-                    <h2 class="display-4 mb-4">About Me</h2>
-                    <p class="lead">
-                        I am an iOS Developer & aspiring Full Stack Developer with a passion for creating impactful software solutions.
+                    <h3 class="mb-3">Software Developer.</h3>
+                    <ul class="list-unstyled">
+                        <li><strong>Degree:</strong> Bachelor</li>
+                        <li><strong>Email:</strong> <a href="mailto:Hessaalmasaad@gmail.com">Hessaalmasaad@gmail.com</a></li>
+                        <li><strong>Graduation Date:</strong> 10 March 2025</li>
+                        <li><strong>Phone:</strong> +966539772787</li>
+                    </ul>
+                    <p>
+                        I am seeking a role in a technology-driven organization that fosters a supportive and innovative environment. I aim to leverage my skills and expertise in web development to drive impactful projects and contribute meaningfully to organizational growth. I am highly adaptable and committed to continuously learning and applying new technologies.
                     </p>
-                    <a href="{% url 'main:projects' %}" class="btn btn-primary mt-4">Explore My Projects</a>
+                    <a href="{% url 'main:projects' %}" class="btn btn-download-resume">Explore My Projects</a>
                 </div>
             </div>
         </div>
-    </section>
-</div>
+    </div>
+</section>
+
 <div class="background-shape shape1"></div>
 <div class="background-shape shape2"></div>
 
