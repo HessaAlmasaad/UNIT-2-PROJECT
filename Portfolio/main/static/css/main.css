@@ -378,9 +378,11 @@ body.projects-background {
     color: #e63900; /* Darker color on hover */
 }
 
-/* Footer Styles */
 footer {
     text-align: center;
     color: #ffffff;
     padding: 20px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
