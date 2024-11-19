@@ -78,7 +78,7 @@ def project_list(request):
 @user_passes_test(lambda u: u.is_superuser)
 def project_create(request):
     # Using modelformset_factory to create a formset for ProjectImage model
-    ProjectImageFormSet = modelformset_factory(ProjectImage, fields=('image',), extra=3)
+    ProjectImageFormSet = modelformset_factory(ProjectImage, fields=('image',), extra=4)
 
     if request.method == "POST":
         form = ProjectForm(request.POST)

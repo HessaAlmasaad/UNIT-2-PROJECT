@@ -19,7 +19,7 @@ class Project(models.Model):
     technologies_used = models.TextField()
     role_details = models.TextField()
     github_url = models.URLField(blank=True, null=True)
-    project_image = models.ImageField(upload_to="images/", blank=True, null=True)
+    project_image = models.ImageField(upload_to="images/",default="images/defualt.jpg")
     project_date = models.DateField(null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
 

@@ -14,7 +14,7 @@ def projects(request):
     if category == 'all':
         projects = Project.objects.all()
     else:
-        projects = Project.objects.filter(category__iexact=category)  # Case-insensitive match
+        projects = Project.objects.filter(category__iexact=category) 
     return render(request, 'main/projects.html', {'projects': projects})
 
 
