@@ -13,8 +13,9 @@
             <p class="card-text"><strong>Date:</strong> {{ project.project_date }}</p>
             <h5 class="card-subtitle mb-3 text-muted">Category: <span class="badge badge-info">{{ project.category }}</span></h5>
             <div class="col-md-6">
-                {% for project in projects.image %}
-                <img src="{{ project.images.all.image.url }}" class="img-fluid rounded shadow" alt="{{ project.title }}" style="max-width: 100%; height: auto;">
+                {% for project in projects %}
+                <!-- <img src="{{ project.all.image }}" class="img-fluid rounded shadow" alt="{{ project.title }}" style="max-width: 100%; height: auto;">  -->
+                    {project.images.image}
                 {% endfor %}
             </div>
             <p class="card-text"><strong>Description:</strong> {{ project.description }}</p>
