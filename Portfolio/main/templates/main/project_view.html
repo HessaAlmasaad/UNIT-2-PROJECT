@@ -12,6 +12,11 @@
         <div class="card-body">
             <p class="card-text"><strong>Date:</strong> {{ project.project_date }}</p>
             <h5 class="card-subtitle mb-3 text-muted">Category: <span class="badge badge-info">{{ project.category }}</span></h5>
+            <div class="col-md-6">
+                {% for project in projects.image %}
+                <img src="{{ project.images.all.image.url }}" class="img-fluid rounded shadow" alt="{{ project.title }}" style="max-width: 100%; height: auto;">
+                {% endfor %}
+            </div>
             <p class="card-text"><strong>Description:</strong> {{ project.description }}</p>
             <p class="card-text"><strong>Technology Used:</strong> {{ project.technologies_used }}</p>
             <p class="card-text"><strong>My Role in Project:</strong> {{ project.role_details }}</p>
